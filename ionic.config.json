@@ -1,0 +1,7 @@
+{
+  "name": "context",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
