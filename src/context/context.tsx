@@ -1,34 +1,31 @@
 import React, { useState } from "react";
 
-interface AppContextInterface {
+interface ContextInterface {
     title: string;
     author: string;
     url: string;
 }
 
-const appContext: AppContextInterface = {
-    title: "Using React Context in a Typescript App",
+const contextObj: ContextInterface = {
+    title: "React Context example in a Typescript App",
     author: "Joshua",
-    url: "http://www.example.com",
-  };
-
-export const AppCtx = React.createContext({
-    currentContext: appContext,
-    updateContext: (newContextData: any) => {},
-});
-
-export const AppContext = (props: any) => {
-    const [currentContext, setCurrentContext] = useState(appContext);
-
-    const updateContext = (newContextData: any) => {
-        setCurrentContext(newContextData);
-    };
-
-    return (
-        <AppCtx.Provider value={{ currentContext, updateContext }}>
-            {props.children}
-        </AppCtx.Provider>
-    );
+    url: "http://www.litestep.com",
 };
 
-export default AppContext;
+const defaultContextArray: ContextInterface[] = [contextObj];
+
+export const AppContext = React.createContext({
+    ContextArray: defaultContextArray,
+    setContextArray: (data: ContextInterface[]) => {},
+});
+
+export const AppProvider = ({ children }: any) => {
+    const [ContextArray, setContextArray] = useState(defaultContextArray);
+
+    const value = {
+        ContextArray,
+        setContextArray,
+    };
+
+    return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
+};

@@ -21,14 +21,14 @@ import "@ionic/react/css/display.css";
 
 /* Theme variables */
 import "./theme/variables.css";
-import { AppContext } from "./context/context";
+import { AppProvider } from "./context/context";
 
 setupIonicReact();
 
 const App: React.FC = () => (
     <IonApp>
         <IonReactRouter>
-            <AppContext>
+            <AppProvider>
                 <IonRouterOutlet>
                     <Route exact path="/home">
                         <Home />
@@ -37,7 +37,7 @@ const App: React.FC = () => (
                         <Redirect to="/home" />
                     </Route>
                 </IonRouterOutlet>
-            </AppContext>
+            </AppProvider>
         </IonReactRouter>
     </IonApp>
 );
