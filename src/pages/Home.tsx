@@ -8,37 +8,39 @@ import {
 } from "@ionic/react";
 import React, { useEffect } from "react";
 import ExploreContainer from "../components/ExploreContainer";
-import { AppCtx } from "../context/context";
+import { AppContext } from "../context/context";
 import "./Home.css";
 
 const Home: React.FC = () => {
-    const appContext = React.useContext(AppCtx);
+    const { ContextArray, setContextArray } = React.useContext(AppContext); // Enable context, and destructure the values
 
     useEffect(() => {
-        console.log(appContext);
-    }, [ appContext ]);
+        // When ContextArray changes, log it to the console
+        console.log(ContextArray);
+    }, [ContextArray]);
 
     const updateCurrentContext = () => {
-        const obj = { ...appContext.currentContext };
-        obj.author = "Michele!";
-        appContext.updateContext(obj);
+        const mutableContextArray = [...ContextArray]; // Create a mutable copy of ContextArray
+        mutableContextArray[0].author = "Michele!"; // Update the author of the first item in the array
+        setContextArray(mutableContextArray); // Update ContextArray with the updated array
     };
 
-    
     return (
         <IonPage>
             <IonHeader>
                 <IonToolbar>
-                    <IonTitle>Blank</IonTitle>
+                    <IonTitle>Context Example</IonTitle>
                 </IonToolbar>
             </IonHeader>
             <IonContent fullscreen>
                 <IonHeader collapse="condense">
                     <IonToolbar>
-                        <IonTitle size="large">Blank</IonTitle>
+                        <IonTitle size="large">Context Example</IonTitle>
                     </IonToolbar>
                 </IonHeader>
-                <IonButton onClick={() => updateCurrentContext()}>Update Context!</IonButton>
+                <IonButton onClick={updateCurrentContext}>
+                    Update Context!
+                </IonButton>
                 <ExploreContainer />
             </IonContent>
         </IonPage>
